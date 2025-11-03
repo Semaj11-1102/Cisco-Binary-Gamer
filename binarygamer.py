@@ -1,5 +1,7 @@
 from splinter import Browser
 import time
+import os
+
 browser = Browser()
 
 # Clicks play
@@ -397,6 +399,7 @@ while True:
             time.sleep(1)
 
 
-    except Exception as e:
-        print ("Error")
+    except Exception:
+        print ("Loading...")
+        time.sleep (1)      
 
