@@ -1,7 +1,5 @@
 from splinter import Browser
 import time
-import os
-
 browser = Browser()
 
 # Clicks play
@@ -73,8 +71,11 @@ def tests():
 # This sets the buttons to their correct state, completing the question. Can probably be done in the previous function.
 def click_buttons():
     #128
-    button = browser.find_by_xpath('/html/body/div/div/div[1]/div[2]/div[2]/div[1]/div/div/div[1]/button[1]')
-
+    try:
+        button = browser.find_by_xpath('/html/body/div/div/div[1]/div[2]/div[2]/div[1]/div/div/div[1]/button[1]')
+    except Exception:
+        print (error)
+        pass
     if binary_nums[0] == 0 and 'on' not in button ['class']:
         pass
     elif binary_nums[0] == 0 and 'on' in button['class']:
@@ -86,8 +87,10 @@ def click_buttons():
         button.click()
 
     #64
-    button = browser.find_by_xpath('/html/body/div/div/div[1]/div[2]/div[2]/div[1]/div/div/div[1]/button[2]')
-
+    try:
+        button = browser.find_by_xpath('/html/body/div/div/div[1]/div[2]/div[2]/div[1]/div/div/div[1]/button[2]')
+    except Exception:
+        print (error)
     if binary_nums[1] == 0 and 'on' not in button ['class']:
         pass
     elif binary_nums[1] == 0 and 'on' in button['class']:
@@ -99,8 +102,10 @@ def click_buttons():
         button.click()
 
     #32
-    button = browser.find_by_xpath('/html/body/div/div/div[1]/div[2]/div[2]/div[1]/div/div/div[1]/button[3]')
-
+    try:
+        button = browser.find_by_xpath('/html/body/div/div/div[1]/div[2]/div[2]/div[1]/div/div/div[1]/button[3]')
+    except Exception:
+        print (error)
     if binary_nums[2] == 0 and 'on' not in button ['class']:
         pass
     elif binary_nums[2] == 0 and 'on' in button['class']:
@@ -112,8 +117,10 @@ def click_buttons():
         button.click()
 
     #16
-    button = browser.find_by_xpath('/html/body/div/div/div[1]/div[2]/div[2]/div[1]/div/div/div[1]/button[4]')
-
+    try:
+        button = browser.find_by_xpath('/html/body/div/div/div[1]/div[2]/div[2]/div[1]/div/div/div[1]/button[4]')
+    except Exception:
+        print(error)
     if binary_nums[3] == 0 and 'on' not in button ['class']:
         pass
     elif binary_nums[3] == 0 and 'on' in button['class']:
@@ -125,8 +132,10 @@ def click_buttons():
         button.click()
 
     #8
-    button = browser.find_by_xpath('/html/body/div/div/div[1]/div[2]/div[2]/div[1]/div/div/div[1]/button[5]')
-
+    try:
+        button = browser.find_by_xpath('/html/body/div/div/div[1]/div[2]/div[2]/div[1]/div/div/div[1]/button[5]')
+    except Exception:
+        print(error)
     if binary_nums[4] == 0 and 'on' not in button ['class']:
         pass
     elif binary_nums[4] == 0 and 'on' in button['class']:
@@ -138,8 +147,10 @@ def click_buttons():
         button.click()
 
     #4
-    button = browser.find_by_xpath('/html/body/div/div/div[1]/div[2]/div[2]/div[1]/div/div/div[1]/button[6]')
-
+    try:
+        button = browser.find_by_xpath('/html/body/div/div/div[1]/div[2]/div[2]/div[1]/div/div/div[1]/button[6]')
+    except Exception:
+        print(error)
     if binary_nums[5] == 0 and 'on' not in button ['class']:
         pass
     elif binary_nums[5] == 0 and 'on' in button['class']:
@@ -151,8 +162,10 @@ def click_buttons():
         button.click()
 
     #2
-    button = browser.find_by_xpath('/html/body/div/div/div[1]/div[2]/div[2]/div[1]/div/div/div[1]/button[7]')
-
+    try:
+        button = browser.find_by_xpath('/html/body/div/div/div[1]/div[2]/div[2]/div[1]/div/div/div[1]/button[7]')
+    except Exception:
+        print(error)
     if binary_nums[6] == 0 and 'on' not in button ['class']:
         pass
     elif binary_nums[6] == 0 and 'on' in button['class']:
@@ -164,8 +177,10 @@ def click_buttons():
         button.click()
 
     #1
-    button = browser.find_by_xpath('/html/body/div/div/div[1]/div[2]/div[2]/div[1]/div/div/div[1]/button[8]')
-
+    try:
+        button = browser.find_by_xpath('/html/body/div/div/div[1]/div[2]/div[2]/div[1]/div/div/div[1]/button[8]')
+    except Exception:
+        print(error)
     if binary_nums[7] == 0 and 'on' not in button ['class']:
         pass
     elif binary_nums[7] == 0 and 'on' in button['class']:
@@ -180,62 +195,55 @@ def orange_question():
     global binary_nums
     binary_nums = tests()
     tests()
+    #get_button_states()
     click_buttons()
 
 # Works out the total from the binary digits for green question
 def green_question_logic():
     global green_value
     green_value = 0
-
     #128
     button = browser.find_by_xpath('/html/body/div/div/div[1]/div[2]/div[2]/div[1]/div/div/div[1]/button[1]')
     if 'on' in button['class']:
         green_value = int(green_value) + 128
     else:
         pass
-
     #64
     button = browser.find_by_xpath('/html/body/div/div/div[1]/div[2]/div[2]/div[1]/div/div/div[1]/button[2]')
     if 'on' in button['class']:
         green_value = int(green_value) + 64
     else:
         pass
-
     #32
     button = browser.find_by_xpath('/html/body/div/div/div[1]/div[2]/div[2]/div[1]/div/div/div[1]/button[3]')
     if 'on' in button['class']:
         green_value = int(green_value) + 32
     else:
         pass
-
     #16
     button = browser.find_by_xpath('/html/body/div/div/div[1]/div[2]/div[2]/div[1]/div/div/div[1]/button[4]')
     if 'on' in button['class']:
         green_value = int(green_value) + 16
     else:
         pass
-
     #8
     button = browser.find_by_xpath('/html/body/div/div/div[1]/div[2]/div[2]/div[1]/div/div/div[1]/button[5]')
     if 'on' in button['class']:
         green_value = int(green_value) + 8
     else:
         pass
-
     #4
     button = browser.find_by_xpath('/html/body/div/div/div[1]/div[2]/div[2]/div[1]/div/div/div[1]/button[6]')
     if 'on' in button['class']:
         green_value = int(green_value) + 4
     else:
         pass
-
     #2
     button = browser.find_by_xpath('/html/body/div/div/div[1]/div[2]/div[2]/div[1]/div/div/div[1]/button[7]')
     if 'on' in button['class']:
         green_value = int(green_value) + 2
     else:
         pass
-
     #1
     button = browser.find_by_xpath('/html/body/div/div/div[1]/div[2]/div[2]/div[1]/div/div/div[1]/button[8]')
     if 'on' in button['class']:
@@ -361,45 +369,45 @@ def green_clicking_third_digit(green_value):
         button = browser.find_by_xpath('/html/body/div/div/div[1]/div[2]/div[2]/div[1]/div[2]/button[3]')
         button.click()
     else:
-        exit("Error reading string")
+        exit(7)
 
 # Runs all functions for green question
 def green_question():
     green_question_logic()
     green_question_input()
     green_clicking(green_value)
-
+    time.sleep(0.5)
 
 def next_level():
-    if browser.is_element_present_by_xpath('/html/body/div/div/div[3]/div/div/button', wait_time=0.1):
-        next_button = browser.find_by_xpath('/html/body/div/div/div[3]/div/div/button')
-        next_button.click()
-        return True
-    return False
+    try:
+        element_next = browser.find_by_xpath('/html/body/div/div/div[3]/div/div/button')
+        element_next.click()
+        print("Next level clicked")
+    except Exception as error:
+        print (error)
+        exit(8)
+
 
 # Starts the program
 browser.visit('https://learningcontent.cisco.com/games/binary/index.html')
 click_play()
 binary_nums = tests()
 
+element_box =  browser.find_by_xpath('/html/body/div/div/div[1]/div[2]/div[2]/div[1]/div/div/div[3]')
+
 #Loops the program
 while True:
     try:
-        if next_level():
-            time.sleep(0.05)
-            continue
-
         element_box = browser.find_by_xpath('/html/body/div/div/div[1]/div[2]/div[2]/div[1]/div/div/div[3]')
-        if element_box and "?" in element_box.text:
+        if "?" in element_box.text:
             green_question()
+            #next_level()
             time.sleep(1)
-
         else:
             orange_question()
+            #next_level()
             time.sleep(1)
-
-
-    except Exception:
-        print ("Loading...")
-        time.sleep (1)      
+    except Exception as e:
+        print(e)
+        time.sleep(5)
 
