@@ -1,11 +1,11 @@
-import splinter
+
 from splinter import Browser
 import time
-import os
 
-browser = Browser('chrome')
+browser = Browser('firefox')
 
-dict = {0: "/html/body/div/div/div[1]/div[2]/div[2]/div[1]/div/div/div[1]/button[1]", 1: "/html/body/div/div/div[1]/div[2]/div[2]/div[1]/div/div/div[1]/button[2]", 2:"/html/body/div/div/div[1]/div[2]/div[2]/div[1]/div/div/div[1]/button[3]", 3:"/html/body/div/div/div[1]/div[2]/div[2]/div[1]/div/div/div[1]/button[4]",4:"/html/body/div/div/div[1]/div[2]/div[2]/div[1]/div/div/div[1]/button[5]",5:"/html/body/div/div/div[1]/div[2]/div[2]/div[1]/div/div/div[1]/button[6]",6:"/html/body/div/div/div[1]/div[2]/div[2]/div[1]/div/div/div[1]/button[7]",7:"/html/body/div/div/div[1]/div[2]/div[2]/div[1]/div/div/div[1]/button[8]"} 
+global_dictionary = {0: "/html/body/div/div/div[1]/div[2]/div[2]/div[1]/div/div/div[1]/button[1]", 1: "/html/body/div/div/div[1]/div[2]/div[2]/div[1]/div/div/div[1]/button[2]", 2:"/html/body/div/div/div[1]/div[2]/div[2]/div[1]/div/div/div[1]/button[3]", 3:"/html/body/div/div/div[1]/div[2]/div[2]/div[1]/div/div/div[1]/button[4]",4:"/html/body/div/div/div[1]/div[2]/div[2]/div[1]/div/div/div[1]/button[5]",5:"/html/body/div/div/div[1]/div[2]/div[2]/div[1]/div/div/div[1]/button[6]",6:"/html/body/div/div/div[1]/div[2]/div[2]/div[1]/div/div/div[1]/button[7]",7:"/html/body/div/div/div[1]/div[2]/div[2]/div[1]/div/div/div[1]/button[8]"}
+binary_number_dictionary = {0:128, 1:64, 2:32, 3:16, 4:8, 5:4, 6:2, 7:1}
 
 # Clicks play
 def click_play():
@@ -75,8 +75,8 @@ def tests():
 
 # This sets the buttons to their correct state, completing the question. Can probably be done in the previous function.
 def click_buttons():
-    for i in range (0,7):
-        button = browser.find_by_xpath(dict[i])
+    for i in range (0,8):
+        button = browser.find_by_xpath(global_dictionary[i])
     
         if binary_nums[i] == 0 and 'on' not in button ['class']:
             pass
@@ -99,62 +99,15 @@ def green_question_logic():
     global green_value
     green_value = 0
 
-    #128
-    button = browser.find_by_xpath('/html/body/div/div/div[1]/div[2]/div[2]/div[1]/div/div/div[1]/button[1]')
-    if 'on' in button['class']:
-        green_value = int(green_value) + 128
-    else:
-        pass
-
-    #64
-    button = browser.find_by_xpath('/html/body/div/div/div[1]/div[2]/div[2]/div[1]/div/div/div[1]/button[2]')
-    if 'on' in button['class']:
-        green_value = int(green_value) + 64
-    else:
-        pass
-
-    #32
-    button = browser.find_by_xpath('/html/body/div/div/div[1]/div[2]/div[2]/div[1]/div/div/div[1]/button[3]')
-    if 'on' in button['class']:
-        green_value = int(green_value) + 32
-    else:
-        pass
-
-    #16
-    button = browser.find_by_xpath('/html/body/div/div/div[1]/div[2]/div[2]/div[1]/div/div/div[1]/button[4]')
-    if 'on' in button['class']:
-        green_value = int(green_value) + 16
-    else:
-        pass
-
-    #8
-    button = browser.find_by_xpath('/html/body/div/div/div[1]/div[2]/div[2]/div[1]/div/div/div[1]/button[5]')
-    if 'on' in button['class']:
-        green_value = int(green_value) + 8
-    else:
-        pass
-
-    #4
-    button = browser.find_by_xpath('/html/body/div/div/div[1]/div[2]/div[2]/div[1]/div/div/div[1]/button[6]')
-    if 'on' in button['class']:
-        green_value = int(green_value) + 4
-    else:
-        pass
-
-    #2
-    button = browser.find_by_xpath('/html/body/div/div/div[1]/div[2]/div[2]/div[1]/div/div/div[1]/button[7]')
-    if 'on' in button['class']:
-        green_value = int(green_value) + 2
-    else:
-        pass
-
-    #1
-    button = browser.find_by_xpath('/html/body/div/div/div[1]/div[2]/div[2]/div[1]/div/div/div[1]/button[8]')
-    if 'on' in button['class']:
-        green_value = int(green_value) + 1
-    else:
-        pass
+    for i in range (0,8):
+        button = browser.find_by_xpath(global_dictionary[i])
+        if 'on' in button['class']:
+            green_value = int(green_value) + binary_number_dictionary[i]
+            print (green_value)
+        else:
+            pass
     return (str(green_value))
+
 
 # Clicks the button to enter the inputs
 def green_question_input():
