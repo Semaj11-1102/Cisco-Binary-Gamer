@@ -4,8 +4,13 @@ import time
 
 browser = Browser('firefox')
 
+
+# Dictionaries
 global_dictionary = {0: "/html/body/div/div/div[1]/div[2]/div[2]/div[1]/div/div/div[1]/button[1]", 1: "/html/body/div/div/div[1]/div[2]/div[2]/div[1]/div/div/div[1]/button[2]", 2:"/html/body/div/div/div[1]/div[2]/div[2]/div[1]/div/div/div[1]/button[3]", 3:"/html/body/div/div/div[1]/div[2]/div[2]/div[1]/div/div/div[1]/button[4]",4:"/html/body/div/div/div[1]/div[2]/div[2]/div[1]/div/div/div[1]/button[5]",5:"/html/body/div/div/div[1]/div[2]/div[2]/div[1]/div/div/div[1]/button[6]",6:"/html/body/div/div/div[1]/div[2]/div[2]/div[1]/div/div/div[1]/button[7]",7:"/html/body/div/div/div[1]/div[2]/div[2]/div[1]/div/div/div[1]/button[8]"}
 binary_number_dictionary = {0:128, 1:64, 2:32, 3:16, 4:8, 5:4, 6:2, 7:1}
+button_dictionary = {0:"/html/body/div/div/div[1]/div[2]/div[2]/div[1]/div[2]/button[2]" ,1:"/html/body/div/div/div[1]/div[2]/div[2]/div[1]/div[2]/button[4]", 2: "/html/body/div/div/div[1]/div[2]/div[2]/div[1]/div[2]/button[5]", 3: "/html/body/div/div/div[1]/div[2]/div[2]/div[1]/div[2]/button[6]", 4: "/html/body/div/div/div[1]/div[2]/div[2]/div[1]/div[2]/button[7]", 5: "/html/body/div/div/div[1]/div[2]/div[2]/div[1]/div[2]/button[8]", 6: "/html/body/div/div/div[1]/div[2]/div[2]/div[1]/div[2]/button[9]", 7: "/html/body/div/div/div[1]/div[2]/div[2]/div[1]/div[2]/button[10]", 8: "/html/body/div/div/div[1]/div[2]/div[2]/div[1]/div[2]/button[11]", 9:"/html/body/div/div/div[1]/div[2]/div[2]/div[1]/div[2]/button[12]"}
+bit_words = {0: "one_twenty_eight", 1: "sixty_four", 2: "thirty_two", 3: "sixteen", 4: "eight", 5: "four", 6: "two", 7: "one"}
+bit_values = {  }
 
 # Clicks play
 def click_play():
@@ -16,6 +21,7 @@ def click_play():
 def tests():
     element = browser.find_by_css('.digits')[0]
     value = element.text
+
     one_twenty_eight = int(value) // 128
     if one_twenty_eight >= 1:
         one_twenty_eight = 1
@@ -103,7 +109,6 @@ def green_question_logic():
         button = browser.find_by_xpath(global_dictionary[i])
         if 'on' in button['class']:
             green_value = int(green_value) + binary_number_dictionary[i]
-            print (green_value)
         else:
             pass
     return (str(green_value))
@@ -116,36 +121,11 @@ def green_question_input():
 
 #enters the first digit
 def green_clicking(green_value):
-    if (str(green_value)[0:1]) == '1':
-        button = browser.find_by_xpath('/html/body/div/div/div[1]/div[2]/div[2]/div[1]/div[2]/button[4]')
-        button.click()
-    elif (str(green_value)[0:1]) == '2':
-        button = browser.find_by_xpath('/html/body/div/div/div[1]/div[2]/div[2]/div[1]/div[2]/button[5]')
-        button.click()
-    elif (str(green_value)[0:1]) == '3':
-        button = browser.find_by_xpath('/html/body/div/div/div[1]/div[2]/div[2]/div[1]/div[2]/button[6]')
-        button.click()
-    elif (str(green_value)[0:1]) == '4':
-        button = browser.find_by_xpath('/html/body/div/div/div[1]/div[2]/div[2]/div[1]/div[2]/button[7]')
-        button.click()
-    elif (str(green_value)[0:1]) == '5':
-        button = browser.find_by_xpath('/html/body/div/div/div[1]/div[2]/div[2]/div[1]/div[2]/button[8]')
-        button.click()
-    elif (str(green_value)[0:1]) == '6':
-        button = browser.find_by_xpath('/html/body/div/div/div[1]/div[2]/div[2]/div[1]/div[2]/button[9]')
-        button.click()
-    elif (str(green_value)[0:1]) == '7':
-        button = browser.find_by_xpath('/html/body/div/div/div[1]/div[2]/div[2]/div[1]/div[2]/button[10]')
-        button.click()
-    elif (str(green_value)[0:1]) == '8':
-        button = browser.find_by_xpath('/html/body/div/div/div[1]/div[2]/div[2]/div[1]/div[2]/button[11]')
-        button.click()
-    elif (str(green_value)[0:1]) == '9':
-        button = browser.find_by_xpath('/html/body/div/div/div[1]/div[2]/div[2]/div[1]/div[2]/button[12]')
-        button.click()
-    elif (str(green_value)[0:1]) == '0':
-        button = browser.find_by_xpath('/html/body/div/div/div[1]/div[2]/div[2]/div[1]/div[2]/button[2]')
-        button.click()
+
+    for i in range (0,10):
+        if (str(green_value)[0:1]) == str(i):
+            button = browser.find_by_xpath(button_dictionary[i])
+            button.click()
     if len(str(green_value)) == 1:
         button = browser.find_by_xpath('/html/body/div/div/div[1]/div[2]/div[2]/div[1]/div[2]/button[3]')
         button.click()
@@ -154,36 +134,10 @@ def green_clicking(green_value):
 
 #Enters the final digit in 2 digit numbers and the middle digit for 3 digit numbers
 def green_clicking_second_digit(green_value):
-    if (str(green_value)[1:2]) == '1':
-        button = browser.find_by_xpath('/html/body/div/div/div[1]/div[2]/div[2]/div[1]/div[2]/button[4]')
-        button.click()
-    elif (str(green_value)[1:2]) == '2':
-        button = browser.find_by_xpath('/html/body/div/div/div[1]/div[2]/div[2]/div[1]/div[2]/button[5]')
-        button.click()
-    elif (str(green_value)[1:2]) == '3':
-        button = browser.find_by_xpath('/html/body/div/div/div[1]/div[2]/div[2]/div[1]/div[2]/button[6]')
-        button.click()
-    elif (str(green_value)[1:2]) == '4':
-        button = browser.find_by_xpath('/html/body/div/div/div[1]/div[2]/div[2]/div[1]/div[2]/button[7]')
-        button.click()
-    elif (str(green_value)[1:2]) == '5':
-        button = browser.find_by_xpath('/html/body/div/div/div[1]/div[2]/div[2]/div[1]/div[2]/button[8]')
-        button.click()
-    elif (str(green_value)[1:2]) == '6':
-        button = browser.find_by_xpath('/html/body/div/div/div[1]/div[2]/div[2]/div[1]/div[2]/button[9]')
-        button.click()
-    elif (str(green_value)[1:2]) == '7':
-        button = browser.find_by_xpath('/html/body/div/div/div[1]/div[2]/div[2]/div[1]/div[2]/button[10]')
-        button.click()
-    elif (str(green_value)[1:2]) == '8':
-        button = browser.find_by_xpath('/html/body/div/div/div[1]/div[2]/div[2]/div[1]/div[2]/button[11]')
-        button.click()
-    elif (str(green_value)[1:2]) == '9':
-        button = browser.find_by_xpath('/html/body/div/div/div[1]/div[2]/div[2]/div[1]/div[2]/button[12]')
-        button.click()
-    elif (str(green_value)[1:2]) == '0':
-        button = browser.find_by_xpath('/html/body/div/div/div[1]/div[2]/div[2]/div[1]/div[2]/button[2]')
-        button.click()
+    for i in range (0,10):
+        if (str(green_value)[1:2]) == str(i):
+            button = browser.find_by_xpath(button_dictionary[i])
+            button.click()
     if len(str(green_value)) == 2:
         button = browser.find_by_xpath('/html/body/div/div/div[1]/div[2]/div[2]/div[1]/div[2]/button[3]')
         button.click()
@@ -192,36 +146,11 @@ def green_clicking_second_digit(green_value):
 
 #Enters the final digit in 3 digit numbers
 def green_clicking_third_digit(green_value):
-    if (str(green_value)[2:3]) == '1':
-        button = browser.find_by_xpath('/html/body/div/div/div[1]/div[2]/div[2]/div[1]/div[2]/button[4]')
-        button.click()
-    elif (str(green_value)[2:3]) == '2':
-        button = browser.find_by_xpath('/html/body/div/div/div[1]/div[2]/div[2]/div[1]/div[2]/button[5]')
-        button.click()
-    elif (str(green_value)[2:3]) == '3':
-        button = browser.find_by_xpath('/html/body/div/div/div[1]/div[2]/div[2]/div[1]/div[2]/button[6]')
-        button.click()
-    elif (str(green_value)[2:3]) == '4':
-        button = browser.find_by_xpath('/html/body/div/div/div[1]/div[2]/div[2]/div[1]/div[2]/button[7]')
-        button.click()
-    elif (str(green_value)[2:3]) == '5':
-        button = browser.find_by_xpath('/html/body/div/div/div[1]/div[2]/div[2]/div[1]/div[2]/button[8]')
-        button.click()
-    elif (str(green_value)[2:3]) == '6':
-        button = browser.find_by_xpath('/html/body/div/div/div[1]/div[2]/div[2]/div[1]/div[2]/button[9]')
-        button.click()
-    elif (str(green_value)[2:3]) == '7':
-        button = browser.find_by_xpath('/html/body/div/div/div[1]/div[2]/div[2]/div[1]/div[2]/button[10]')
-        button.click()
-    elif (str(green_value)[2:3]) == '8':
-        button = browser.find_by_xpath('/html/body/div/div/div[1]/div[2]/div[2]/div[1]/div[2]/button[11]')
-        button.click()
-    elif (str(green_value)[2:3]) == '9':
-        button = browser.find_by_xpath('/html/body/div/div/div[1]/div[2]/div[2]/div[1]/div[2]/button[12]')
-        button.click()
-    elif (str(green_value)[2:3]) == '0':
-        button = browser.find_by_xpath('/html/body/div/div/div[1]/div[2]/div[2]/div[1]/div[2]/button[2]')
-        button.click()
+
+    for i in range (0,10):
+        if (str(green_value)[2:3]) == str(i):
+            button = browser.find_by_xpath(button_dictionary[i])
+            button.click()
     if len(str(green_value)) == 3:
         button = browser.find_by_xpath('/html/body/div/div/div[1]/div[2]/div[2]/div[1]/div[2]/button[3]')
         button.click()
@@ -239,32 +168,30 @@ def next_level():
     if browser.is_element_present_by_xpath('/html/body/div/div/div[3]/div/div/button', wait_time=0.1):
         next_button = browser.find_by_xpath('/html/body/div/div/div[3]/div/div/button')
         next_button.click()
-        return True
-    return False
+        #return True
+    else:
+        pass
 
 # Starts the program
-browser.visit('https://learningcontent.cisco.com/games/binary/index.html')
+browser.visit("https://learningcontent.cisco.com/games/binary/index.html")
 click_play()
 binary_nums = tests()
 
 #Loops the program
 while True:
     try:
-        if next_level():
+        boxes = browser.find_by_xpath('/html/body/div/div/div[1]/div[2]/div[2]/div[1]/div/div/div[3]')
+        if boxes:
+            element_box = boxes [0]
+        else: element_box = None
+        if browser.is_element_present_by_xpath("/html/body/div/div/div[3]/div/div/button"):
+            next_level()
             time.sleep(0.05)
-            continue
-
-        element_box = browser.find_by_xpath('/html/body/div/div/div[1]/div[2]/div[2]/div[1]/div/div/div[3]')
-        if element_box and "?" in element_box.text:
+        elif element_box and "?" in element_box.text:
             green_question()
-            time.sleep(1)
-
         else:
             orange_question()
-            time.sleep(1)
-
 
     except Exception:
-        print ("Loading...")
-        time.sleep (1)      
+        pass
 
