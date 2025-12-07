@@ -19,85 +19,98 @@ def click_play():
 
 # This takes the denary and calculates the binary. It shouldn't be called tests but I don't want to change it
 def tests():
-    element = browser.find_by_css('.digits')[0]
-    value = element.text
+    try:
+        value = browser.find_by_css('.digits').first.text
+        one_twenty_eight = int(value) // 128
+        if one_twenty_eight >= 1:
+            one_twenty_eight = 1
+            value = int(value) - 128
+        if one_twenty_eight == 0:
+            one_twenty_eight = 0
 
-    one_twenty_eight = int(value) // 128
-    if one_twenty_eight >= 1:
-        one_twenty_eight = 1
-        value = int(value) - 128
-    if one_twenty_eight == 0:
-        one_twenty_eight = 0
+        sixty_four = int(value) // 64
+        if sixty_four >= 1:
+            sixty_four = 1
+            value = int(value) - 64
+        if sixty_four == 0:
+            sixty_four = 0
 
-    sixty_four = int(value) // 64
-    if sixty_four >= 1:
-        sixty_four = 1
-        value = int(value) - 64
-    if sixty_four == 0:
-        sixty_four = 0
+        thirty_two = int(value) // 32
+        if thirty_two >= 1:
+            thirty_two = 1
+            value = int(value) - 32
+        if thirty_two == 0:
+            thirty_two = 0
 
-    thirty_two = int(value) // 32
-    if thirty_two >= 1:
-        thirty_two = 1
-        value = int(value) - 32
-    if thirty_two == 0:
-        thirty_two = 0
+        sixteen = int(value) // 16
+        if sixteen >= 1:
+            sixteen = 1
+            value = int(value) - 16
+        if sixteen == 0:
+            sixteen = 0
 
-    sixteen = int(value) // 16
-    if sixteen >= 1:
-        sixteen = 1
-        value = int(value) - 16
-    if sixteen == 0:
-        sixteen = 0
+        eight = int(value) // 8
+        if eight >= 1:
+            eight = 1
+            value = int(value) - 8
+        if eight == 0:
+            eight = 0
 
-    eight = int(value) // 8
-    if eight >= 1:
-        eight = 1
-        value = int(value) - 8
-    if eight == 0:
-        eight = 0
+        four = int(value) // 4
+        if four >= 1:
+            four = 1
+            value = int(value) - 4
+        if four == 0:
+            four = 0
 
-    four = int(value) // 4
-    if four >= 1:
-        four = 1
-        value = int(value) - 4
-    if four == 0:
-        four = 0
+        two = int(value) // 2
+        if two >= 1:
+            two = 1
+            value = int(value) - 2
+        if two == 0:
+            two = 0
 
-    two = int(value) // 2
-    if two >= 1:
-        two = 1
-        value = int(value) - 2
-    if two == 0:
-        two = 0
+        one = int(value) // 1
+        if one >= 1:
+            one = 1
+        if one == 0:
+            one = 0
 
-    one = int(value) // 1
-    if one >= 1:
-        one = 1
-    if one == 0:
-        one = 0
+        return [one_twenty_eight, sixty_four, thirty_two, sixteen, eight, four, two, one]
 
-    return [one_twenty_eight, sixty_four, thirty_two, sixteen, eight, four, two, one]
+    except ValueError:
+        time.sleep(0.05)
+        return [0,0,0,0,0,0,0,0]
 
 # This sets the buttons to their correct state, completing the question. Can probably be done in the previous function.
 def click_buttons():
-    for i in range (0,8):
-        button = browser.find_by_xpath(global_dictionary[i])
-    
-        if binary_nums[i] == 0 and 'on' not in button ['class']:
-            pass
-        elif binary_nums[i] == 0 and 'on' in button['class']:
-            button.click()
+    try:
+        for i in range (0,8):
+            button = browser.find_by_xpath(global_dictionary[i]).first
 
-        if binary_nums[i] != 0 and 'on' in button ['class']:
-            pass
-        elif binary_nums[i] != 0 and 'on' not in button ['class']:
-            button.click()
-    
+            if binary_nums[i] == 0 and 'on' not in button ['class']:
+                pass
+            elif binary_nums[i] == 0 and 'on' in button['class']:
+                try:
+                    button.click()
+                except:
+                    pass
+
+            if binary_nums[i] != 0 and 'on' in button ['class']:
+                pass
+            elif binary_nums[i] != 0 and 'on' not in button ['class']:
+                try:
+                    button.click()
+                except:
+                    pass
+
+    except TypeError:
+        time.sleep(0.05)
+
+
 def orange_question():
     global binary_nums
     binary_nums = tests()
-    tests()
     click_buttons()
 
 # Works out the total from the binary digits for green question
@@ -165,33 +178,34 @@ def green_question():
 
 
 def next_level():
-    if browser.is_element_present_by_xpath('/html/body/div/div/div[3]/div/div/button', wait_time=0.1):
-        next_button = browser.find_by_xpath('/html/body/div/div/div[3]/div/div/button')
-        next_button.click()
-        #return True
-    else:
-        pass
+    time.sleep(0.05)
+
+    if browser.is_element_present_by_xpath('/html/body/div/div/div[3]/div/div/button',):
+        try:
+            browser.find_by_xpath('/html/body/div/div/div[3]/div/div/button').first.click()
+        except:
+            pass
 
 # Starts the program
 browser.visit("https://learningcontent.cisco.com/games/binary/index.html")
 click_play()
 binary_nums = tests()
 
+
 #Loops the program
 while True:
+    time.sleep(0.05)
+    if browser.is_element_present_by_xpath("/html/body/div/div/div[3]/div/div/button", wait_time=0.1):
+        next_level()
+        time.sleep(0.1)
+        continue
     try:
-        boxes = browser.find_by_xpath('/html/body/div/div/div[1]/div[2]/div[2]/div[1]/div/div/div[3]')
-        if boxes:
-            element_box = boxes [0]
-        else: element_box = None
-        if browser.is_element_present_by_xpath("/html/body/div/div/div[3]/div/div/button"):
-            next_level()
-            time.sleep(0.05)
-        elif element_box and "?" in element_box.text:
-            green_question()
-        else:
-            orange_question()
+        box_text = browser.find_by_xpath("/html/body/div/div/div[1]/div[2]/div[2]/div[1]/div/div/div[3]").first.text
+    except:
+        box_text = ""
 
-    except Exception:
-        pass
+    if "?" in box_text:
+        green_question()
+    else:
+        orange_question()
 
