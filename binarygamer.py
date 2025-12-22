@@ -14,13 +14,13 @@ bit_values = {  }
 
 # Clicks play
 def click_play():
-    button = browser.find_by_xpath('/html/body/div/div/div[3]/div/div/button')[0]
+    button = browser.find_by_xpath("/html/body/div/div/div[3]/div/div/button")[0]
     button.click()
 
 # This takes the denary and calculates the binary. It shouldn't be called tests but I don't want to change it
 def tests():
     try:
-        value = browser.find_by_css('.digits').first.text
+        value = browser.find_by_css(".digits").first.text
         one_twenty_eight = int(value) // 128
         if one_twenty_eight >= 1:
             one_twenty_eight = 1
@@ -88,17 +88,17 @@ def click_buttons():
         for i in range (0,8):
             button = browser.find_by_xpath(global_dictionary[i]).first
 
-            if binary_nums[i] == 0 and 'on' not in button ['class']:
+            if binary_nums[i] == 0 and "on" not in button ["class"]:
                 pass
-            elif binary_nums[i] == 0 and 'on' in button['class']:
+            elif binary_nums[i] == 0 and "on" in button["class"]:
                 try:
                     button.click()
                 except:
                     pass
 
-            if binary_nums[i] != 0 and 'on' in button ['class']:
+            if binary_nums[i] != 0 and "on" in button ["class"]:
                 pass
-            elif binary_nums[i] != 0 and 'on' not in button ['class']:
+            elif binary_nums[i] != 0 and "on" not in button ["class"]:
                 try:
                     button.click()
                 except:
@@ -129,7 +129,7 @@ def green_question_logic():
 
 # Clicks the button to enter the inputs
 def green_question_input():
-    button = browser.find_by_xpath('/html/body/div/div/div[1]/div[2]/div[2]/div[1]/div/div/div[3]')
+    button = browser.find_by_xpath("/html/body/div/div/div[1]/div[2]/div[2]/div[1]/div/div/div[3]")
     button.click()
 
 #enters the first digit
@@ -140,7 +140,7 @@ def green_clicking(green_value):
             button = browser.find_by_xpath(button_dictionary[i])
             button.click()
     if len(str(green_value)) == 1:
-        button = browser.find_by_xpath('/html/body/div/div/div[1]/div[2]/div[2]/div[1]/div[2]/button[3]')
+        button = browser.find_by_xpath("/html/body/div/div/div[1]/div[2]/div[2]/div[1]/div[2]/button[3]")
         button.click()
     else:
         green_clicking_second_digit(green_value)
@@ -152,7 +152,7 @@ def green_clicking_second_digit(green_value):
             button = browser.find_by_xpath(button_dictionary[i])
             button.click()
     if len(str(green_value)) == 2:
-        button = browser.find_by_xpath('/html/body/div/div/div[1]/div[2]/div[2]/div[1]/div[2]/button[3]')
+        button = browser.find_by_xpath("/html/body/div/div/div[1]/div[2]/div[2]/div[1]/div[2]/button[3]")
         button.click()
     else:
         green_clicking_third_digit(green_value)
@@ -165,7 +165,7 @@ def green_clicking_third_digit(green_value):
             button = browser.find_by_xpath(button_dictionary[i])
             button.click()
     if len(str(green_value)) == 3:
-        button = browser.find_by_xpath('/html/body/div/div/div[1]/div[2]/div[2]/div[1]/div[2]/button[3]')
+        button = browser.find_by_xpath("/html/body/div/div/div[1]/div[2]/div[2]/div[1]/div[2]/button[3]")
         button.click()
     else:
         exit("Error reading string")
@@ -180,9 +180,9 @@ def green_question():
 def next_level():
     time.sleep(0.05)
 
-    if browser.is_element_present_by_xpath('/html/body/div/div/div[3]/div/div/button',):
+    if browser.is_element_present_by_xpath("/html/body/div/div/div[3]/div/div/button",):
         try:
-            browser.find_by_xpath('/html/body/div/div/div[3]/div/div/button').first.click()
+            browser.find_by_xpath("/html/body/div/div/div[3]/div/div/button").first.click()
         except:
             pass
 
@@ -194,18 +194,13 @@ binary_nums = tests()
 
 #Loops the program
 while True:
-    time.sleep(0.05)
-    if browser.is_element_present_by_xpath("/html/body/div/div/div[3]/div/div/button", wait_time=0.1):
-        next_level()
-        time.sleep(0.1)
-        continue
     try:
-        box_text = browser.find_by_xpath("/html/body/div/div/div[1]/div[2]/div[2]/div[1]/div/div/div[3]").first.text
-    except:
-        box_text = ""
+        element_box = browser.find_by_xpath('/html/body/div/div/div[1]/div[2]/div[2]/div[1]/div/div/div[3]')
+        if element_box and "?" in element_box.text:
+            green_question()
+        else:
+            orange_question()
 
-    if "?" in box_text:
-        green_question()
-    else:
-        orange_question()
-
+    except Exception as e:
+        print (e)
+        time.sleep (0.01)
